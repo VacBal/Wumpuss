@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameModeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProgtechWumpus</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">GameModeController.java</span></div><h1>GameModeController.java</h1><pre class="source lang-java linenums">package controllers;
+
+import java.util.Scanner;
+import models.Position;
+
+public class GameModeController {
+
+<span class="fc" id="L8">    private String username = &quot;&quot;;</span>
+    private final BoardController board;
+    private final PlayerController player;
+<span class="fc" id="L11">    private boolean gameInProgress = true;</span>
+<span class="fc" id="L12">    private boolean isPlayerOwnTheGold = false;</span>
+
+<span class="fc" id="L14">    public GameModeController(BoardController board, PlayerController player) {</span>
+<span class="fc" id="L15">        this.board = board;</span>
+<span class="fc" id="L16">        this.player = player;</span>
+<span class="fc" id="L17">    }</span>
+
+    public void start() {
+<span class="fc" id="L20">        Scanner sc = new Scanner(System.in);</span>
+
+        // request username
+<span class="fc" id="L23">        System.out.print(&quot;Please enter your username: &quot;);</span>
+<span class="fc" id="L24">        setUsername(sc.nextLine().toUpperCase());</span>
+
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        while (gameInProgress) {</span>
+<span class="fc" id="L27">            System.out.println(&quot;-----------------------------------------------&quot;);</span>
+<span class="fc" id="L28">            printOutGameStatus(board, player);</span>
+<span class="fc" id="L29">            System.out.println(&quot;-----------------------------------------------&quot;);</span>
+<span class="fc" id="L30">            printOutPlayerActions();</span>
+<span class="fc" id="L31">            System.out.println(&quot;-----------------------------------------------&quot;);</span>
+<span class="fc" id="L32">            System.out.print(&quot;Your move: &quot;);</span>
+<span class="fc" id="L33">            String action = sc.nextLine().toUpperCase();</span>
+<span class="fc" id="L34">            System.out.println(&quot;-----------------------------------------------&quot;);</span>
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">            if (&quot;M&quot;.equals(action)) {</span>
+<span class="fc" id="L37">                move();</span>
+<span class="fc" id="L38">                continue;</span>
+            }
+
+<span class="fc bfc" id="L41" title="All 2 branches covered.">            if (&quot;R&quot;.equals(action)) {</span>
+<span class="fc" id="L42">                player.turnRight();</span>
+<span class="fc" id="L43">                continue;</span>
+            }
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            if (&quot;L&quot;.equals(action)) {</span>
+<span class="fc" id="L47">                player.turnLeft();</span>
+<span class="fc" id="L48">                continue;</span>
+            }
+
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            if (&quot;S&quot;.equals(action)) {</span>
+<span class="fc" id="L52">                shot();</span>
+<span class="fc" id="L53">                continue;</span>
+            }
+
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            if (&quot;P&quot;.equals(action)) {</span>
+<span class="fc" id="L57">                pickUpGold();</span>
+<span class="fc" id="L58">                continue;</span>
+            }
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            if (&quot;E&quot;.equals(action)) {</span>
+<span class="fc" id="L62">                setGameInProgress(false);</span>
+            }
+<span class="fc" id="L64">        }</span>
+<span class="fc" id="L65">    }    </span>
+
+    public String getUsername() {
+<span class="fc" id="L68">        return username;</span>
+    }
+
+    public BoardController getBoard() {
+<span class="fc" id="L72">        return board;</span>
+    }
+
+    public PlayerController getPlayer() {
+<span class="fc" id="L76">        return player;</span>
+    }
+
+    public boolean isGameInProgress() {
+<span class="fc" id="L80">        return gameInProgress;</span>
+    }
+
+    public void setUsername(String username) {
+<span class="fc" id="L84">        this.username = username;</span>
+<span class="fc" id="L85">    }</span>
+
+    public void setGameInProgress(boolean gameInProgress) {
+<span class="fc" id="L88">        this.gameInProgress = gameInProgress;</span>
+<span class="fc" id="L89">    }</span>
+
+    public boolean isIsPlayerOwnTheGold() {
+<span class="fc" id="L92">        return isPlayerOwnTheGold;</span>
+    }
+
+    public void setIsPlayerOwnTheGold(boolean isPlayerOwnTheGold) {
+<span class="fc" id="L96">        this.isPlayerOwnTheGold = isPlayerOwnTheGold;</span>
+<span class="fc" id="L97">    }</span>
+
+    public void pickUpGold() {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (this.board.getCell(this.board.getPlayerPosition()) != 'G') {</span>
+<span class="fc" id="L101">            System.out.println(&quot;There is no gold in the current field, the Wumpus must be playing with your mind.&quot;);</span>
+<span class="fc" id="L102">            return;</span>
+        }
+<span class="fc" id="L104">        System.out.println(&quot;You have successfully picked up the gold, all you have to do is return it to the starting position.&quot;);</span>
+<span class="fc" id="L105">        setIsPlayerOwnTheGold(true);</span>
+<span class="fc" id="L106">    }</span>
+
+    private void printOutGameStatus(BoardController board, PlayerController player) {
+<span class="fc" id="L109">        final StringBuffer sb = new StringBuffer(&quot;Game status: \n&quot;);</span>
+<span class="fc" id="L110">        sb.append(&quot;Position (row x column): &quot;).append(board.getPlayerPosition().getRow() + 1).append(&quot; x &quot;).append(board.getPlayerPosition().getColumn() + 1);</span>
+<span class="fc" id="L111">        sb.append(&quot;\nCurrent direction: &quot;).append(player.getCurrentDirection());</span>
+<span class="fc" id="L112">        sb.append(&quot;\nNumber of arrows: &quot;).append(player.getNumberOfArrows());</span>
+<span class="fc" id="L113">        sb.append(&quot;\nAre you own the gold: &quot;).append(this.isPlayerOwnTheGold);</span>
+<span class="fc" id="L114">        System.out.println(sb.toString());</span>
+<span class="fc" id="L115">        System.out.println(&quot;-----------------------------------------------&quot;);</span>
+<span class="fc" id="L116">        System.out.print(board);</span>
+<span class="fc" id="L117">    }</span>
+
+    private void printOutPlayerActions() {
+<span class="fc" id="L120">        final StringBuffer sb = new StringBuffer(&quot;Possible moves: \n&quot;);</span>
+<span class="fc" id="L121">        sb.append(&quot;Move (M) \n&quot;);</span>
+<span class="fc" id="L122">        sb.append(&quot;Turn right (R) \n&quot;);</span>
+<span class="fc" id="L123">        sb.append(&quot;Turn left (L) \n&quot;);</span>
+<span class="fc" id="L124">        sb.append(&quot;Shot (S) \n&quot;);</span>
+<span class="fc" id="L125">        sb.append(&quot;Pick up the gold (P) \n&quot;);</span>
+<span class="fc" id="L126">        sb.append(&quot;I give up the game (E) \n&quot;);</span>
+<span class="fc" id="L127">        System.out.print(sb.toString());</span>
+<span class="fc" id="L128">    }</span>
+
+    private void win() {
+<span class="fc" id="L131">        DatabaseController db = new DatabaseController();</span>
+<span class="fc" id="L132">        db.incrementScore(username);</span>
+<span class="fc" id="L133">        final StringBuffer sb = new StringBuffer(&quot;Congratulations, you've earned the gold! \n&quot;);</span>
+<span class="fc" id="L134">        sb.append(&quot;You have taken &quot;).append(player.getNumberOfSteps()).append(&quot; steps to reach your goal.\n&quot;);</span>
+<span class="fc" id="L135">        System.out.println(sb.toString());</span>
+
+<span class="fc" id="L137">    }</span>
+
+    private void lose() {
+<span class="fc" id="L140">        final StringBuffer sb = new StringBuffer(&quot;Game Over! \n&quot;);</span>
+<span class="fc" id="L141">        sb.append(&quot;You stepped carelessly and unfortunately got killed by a Wumpus.&quot;);</span>
+<span class="fc" id="L142">        System.out.println(sb.toString());</span>
+<span class="fc" id="L143">    }</span>
+
+    private void move() {
+<span class="fc" id="L146">        Position position = nextPosition();</span>
+<span class="fc" id="L147">        board.isValidMove(position);</span>
+<span class="fc" id="L148">        char objectOnTheCell = board.getCell(position);</span>
+
+<span class="fc bfc" id="L150" title="All 2 branches covered.">        if (objectOnTheCell == 'W') {</span>
+<span class="fc" id="L151">            System.out.println(&quot;You cannot go in that direction because there is a wall on it.&quot;);</span>
+<span class="fc" id="L152">            return;</span>
+        }
+
+<span class="fc bfc" id="L155" title="All 2 branches covered.">        if (objectOnTheCell == 'P') {</span>
+<span class="fc" id="L156">            System.out.println(&quot;You stepped carelessly, so unfortunately you found yourself in a pile where you lost an arrow.&quot;);</span>
+<span class="fc" id="L157">            player.move();</span>
+<span class="fc" id="L158">            player.reduceTheNumberOfArrows();</span>
+<span class="fc" id="L159">            board.setCell(board.getPlayerPosition(), '_');</span>
+<span class="fc" id="L160">            board.setPlayerPosition(position);</span>
+<span class="fc" id="L161">            return;</span>
+        }
+
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        if (objectOnTheCell == 'U') {</span>
+<span class="fc" id="L165">            lose();</span>
+<span class="fc" id="L166">            setGameInProgress(false);</span>
+<span class="fc" id="L167">            return;</span>
+        }
+
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        if (objectOnTheCell == 'G') {</span>
+<span class="fc" id="L171">            player.move();</span>
+<span class="fc" id="L172">            board.setCell(board.getPlayerPosition(), '_');</span>
+<span class="fc" id="L173">            board.setPlayerPosition(position);</span>
+<span class="fc" id="L174">            return;</span>
+        }
+
+<span class="fc" id="L177">        player.move();</span>
+
+<span class="pc bpc" id="L179" title="1 of 4 branches missed.">        if (this.isPlayerOwnTheGold &amp;&amp; board.getStartPosition().equals(position)) {</span>
+<span class="fc" id="L180">            win();</span>
+<span class="fc" id="L181">            setGameInProgress(false);</span>
+<span class="fc" id="L182">            return;</span>
+        }
+
+<span class="fc" id="L185">        System.out.println(&quot;Peace and quiet for now, but watch your step.&quot;);</span>
+<span class="fc" id="L186">        board.setCell(board.getPlayerPosition(), '_');</span>
+<span class="fc" id="L187">        board.setCell(position, 'H');</span>
+<span class="fc" id="L188">        board.setPlayerPosition(position);</span>
+
+<span class="fc" id="L190">    }</span>
+
+    private void shot() {
+<span class="fc" id="L193">        char direction = player.getCurrentDirection();</span>
+<span class="fc" id="L194">        player.reduceTheNumberOfArrows();</span>
+<span class="fc" id="L195">        System.out.println(&quot;Shot started with direction: &quot; + direction);</span>
+
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        if (direction == 'N') {</span>
+<span class="fc" id="L198">            verticalShotDirection(-1);</span>
+<span class="fc" id="L199">            return;</span>
+        }
+
+<span class="fc bfc" id="L202" title="All 2 branches covered.">        if (direction == 'E') {</span>
+<span class="fc" id="L203">            horizontalShotDirection(1);</span>
+<span class="fc" id="L204">            return;</span>
+        }
+
+<span class="fc bfc" id="L207" title="All 2 branches covered.">        if (direction == 'S') {</span>
+<span class="fc" id="L208">            verticalShotDirection(1);</span>
+<span class="fc" id="L209">            return;</span>
+        }
+
+<span class="fc" id="L212">        horizontalShotDirection(-1);</span>
+<span class="fc" id="L213">    }</span>
+
+    private void horizontalShotDirection(int step) {
+<span class="fc" id="L216">        Position playerPosition = board.getPlayerPosition();</span>
+<span class="fc" id="L217">        Position nextPosition = new Position(playerPosition.getRow(), playerPosition.getColumn() + step);</span>
+<span class="fc" id="L218">        char objectOnNextCell = board.getCell(nextPosition);</span>
+
+        while (true) {
+<span class="fc bfc" id="L221" title="All 2 branches covered.">            if (objectOnNextCell == 'U') {</span>
+<span class="fc" id="L222">                killWumpus(nextPosition);</span>
+<span class="fc" id="L223">                return;</span>
+            }
+<span class="fc bfc" id="L225" title="All 2 branches covered.">            if (objectOnNextCell == 'W') {</span>
+<span class="fc" id="L226">                System.out.println(&quot;Missed shot! Unfortunately, your arrow pierced a wall.&quot;);</span>
+<span class="fc" id="L227">                return;</span>
+            }
+<span class="fc" id="L229">            nextPosition = new Position(nextPosition.getRow(), nextPosition.getColumn() + step);</span>
+<span class="fc" id="L230">            objectOnNextCell = board.getCell(nextPosition);</span>
+        }
+    }
+
+    private void verticalShotDirection(int step) {
+<span class="fc" id="L235">        Position playerPosition = board.getPlayerPosition();</span>
+<span class="fc" id="L236">        Position nextPosition = new Position(playerPosition.getRow() + step, playerPosition.getColumn());</span>
+<span class="fc" id="L237">        char objectOnNextCell = board.getCell(nextPosition);</span>
+
+        while (true) {
+<span class="fc bfc" id="L240" title="All 2 branches covered.">            if (objectOnNextCell == 'U') {</span>
+<span class="fc" id="L241">                killWumpus(nextPosition);</span>
+<span class="fc" id="L242">                return;</span>
+            }
+<span class="fc bfc" id="L244" title="All 2 branches covered.">            if (objectOnNextCell == 'W') {</span>
+<span class="fc" id="L245">                System.out.println(&quot;Missed shot! Unfortunately, your arrow pierced a wall.&quot;);</span>
+<span class="fc" id="L246">                return;</span>
+            }
+<span class="fc" id="L248">            nextPosition = new Position(nextPosition.getRow() + step, nextPosition.getColumn());</span>
+<span class="fc" id="L249">            objectOnNextCell = board.getCell(nextPosition);</span>
+        }
+    }
+
+    private void killWumpus(Position position) {
+<span class="fc" id="L254">        board.setCell(position, '_');</span>
+<span class="fc" id="L255">        board.decreaseNumberOfWumpus();</span>
+<span class="fc" id="L256">        System.out.println(&quot;Congratulation! You have successfully hit a Wumpus!&quot;);</span>
+<span class="fc" id="L257">    }</span>
+
+    private Position nextPosition() {
+<span class="fc" id="L260">        char direction = player.getCurrentDirection();</span>
+<span class="fc" id="L261">        int currentRowPosition = board.getPlayerPosition().getRow();</span>
+<span class="fc" id="L262">        int currentColumnPosition = board.getPlayerPosition().getColumn();</span>
+
+<span class="fc bfc" id="L264" title="All 2 branches covered.">        if (direction == 'N') {</span>
+<span class="fc" id="L265">            return new Position(currentRowPosition - 1, currentColumnPosition);</span>
+        }
+
+<span class="fc bfc" id="L268" title="All 2 branches covered.">        if (direction == 'E') {</span>
+<span class="fc" id="L269">            return new Position(currentRowPosition, currentColumnPosition + 1);</span>
+        }
+
+<span class="fc bfc" id="L272" title="All 2 branches covered.">        if (direction == 'S') {</span>
+<span class="fc" id="L273">            return new Position(currentRowPosition + 1, currentColumnPosition);</span>
+        }
+
+<span class="fc" id="L276">        return new Position(currentRowPosition, currentColumnPosition - 1);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

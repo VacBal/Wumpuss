@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Player.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProgtechWumpus</a> &gt; <a href="index.source.html" class="el_package">models</a> &gt; <span class="el_source">Player.java</span></div><h1>Player.java</h1><pre class="source lang-java linenums">package models;
+
+public class Player {
+
+    private int numberOfArrows;
+<span class="fc" id="L6">    private int numberOfSteps = 0;</span>
+    private char currentDirection;
+
+<span class="fc" id="L9">    public Player(int numberOfArrows, char currentDirection) {</span>
+<span class="fc" id="L10">        this.numberOfArrows = numberOfArrows;</span>
+<span class="fc" id="L11">        this.currentDirection = currentDirection;</span>
+<span class="fc" id="L12">    }</span>
+
+    public int getNumberOfSteps() {
+<span class="fc" id="L15">        return numberOfSteps;</span>
+    }
+
+    public void setNumberOfSteps(int numberOfSteps) {
+<span class="fc" id="L19">        this.numberOfSteps = numberOfSteps;</span>
+<span class="fc" id="L20">    }</span>
+
+    public int getNumberOfArrows() {
+<span class="fc" id="L23">        return numberOfArrows;</span>
+    }
+
+    public void setNumberOfArrows(int numberOfArrows) {
+<span class="fc" id="L27">        this.numberOfArrows = numberOfArrows;</span>
+<span class="fc" id="L28">    }</span>
+
+    public char getCurrentDirection() {
+<span class="fc" id="L31">        return currentDirection;</span>
+    }
+
+    public void setCurrentDirection(char currentDirection) {
+<span class="fc" id="L35">        this.currentDirection = currentDirection;</span>
+<span class="fc" id="L36">    }</span>
+
+    @Override
+    public String toString() {
+<span class="fc" id="L40">        final StringBuilder sb = new StringBuilder(&quot;Player {&quot;);</span>
+<span class="fc" id="L41">        sb.append(&quot;Number Of Arrows = &quot;).append(numberOfArrows);</span>
+<span class="fc" id="L42">        sb.append(&quot;, Number Of Steps = &quot;).append(numberOfSteps);</span>
+<span class="fc" id="L43">        sb.append(&quot;, Current Direction = &quot;).append(currentDirection);</span>
+<span class="fc" id="L44">        sb.append('}');</span>
+<span class="fc" id="L45">        return sb.toString();</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L50">        int hash = 5;</span>
+<span class="fc" id="L51">        return hash;</span>
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (this == obj) {</span>
+<span class="nc" id="L57">            return true;</span>
+        }
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (obj == null) {</span>
+<span class="nc" id="L60">            return false;</span>
+        }
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (getClass() != obj.getClass()) {</span>
+<span class="nc" id="L63">            return false;</span>
+        }
+<span class="fc" id="L65">        final Player other = (Player) obj;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (this.numberOfArrows != other.numberOfArrows) {</span>
+<span class="fc" id="L67">            return false;</span>
+        }
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if (this.numberOfSteps != other.numberOfSteps) {</span>
+<span class="nc" id="L70">            return false;</span>
+        }
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        return this.currentDirection == other.currentDirection;</span>
+    }
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

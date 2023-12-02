@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PlayerController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProgtechWumpus</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">PlayerController.java</span></div><h1>PlayerController.java</h1><pre class="source lang-java linenums">package controllers;
+
+import java.util.Objects;
+import models.Player;
+
+public class PlayerController {
+
+    private final Player player;
+
+<span class="fc" id="L10">    public PlayerController(int numberOfArrows, char currentDirection) {</span>
+<span class="fc" id="L11">        this.player = new Player(numberOfArrows, currentDirection);</span>
+<span class="fc" id="L12">    }</span>
+
+    public char getCurrentDirection() {
+<span class="fc" id="L15">        return this.player.getCurrentDirection();</span>
+    }
+
+    public int getNumberOfArrows() {
+<span class="fc" id="L19">        return this.player.getNumberOfArrows();</span>
+    }
+
+    public int getNumberOfSteps() {
+<span class="fc" id="L23">        return this.player.getNumberOfSteps();</span>
+    }
+
+    public void move() {
+<span class="fc" id="L27">        player.setNumberOfSteps(player.getNumberOfSteps() + 1);</span>
+<span class="fc" id="L28">    }</span>
+
+    public void turnRight() {
+<span class="fc" id="L31">        System.out.println(&quot;The player has successfully turned right.&quot;);</span>
+<span class="fc" id="L32">        player.setNumberOfSteps(player.getNumberOfSteps() + 1);</span>
+
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (this.player.getCurrentDirection() == 'N') {</span>
+<span class="fc" id="L35">            this.player.setCurrentDirection('E');</span>
+<span class="fc" id="L36">            return;</span>
+        }
+
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (this.player.getCurrentDirection() == 'E') {</span>
+<span class="fc" id="L40">            this.player.setCurrentDirection('S');</span>
+<span class="fc" id="L41">            return;</span>
+        }
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (this.player.getCurrentDirection() == 'S') {</span>
+<span class="fc" id="L45">            this.player.setCurrentDirection('W');</span>
+<span class="fc" id="L46">            return;</span>
+        }
+
+<span class="fc" id="L49">        this.player.setCurrentDirection('N');</span>
+<span class="fc" id="L50">    }</span>
+
+    public void turnLeft() {
+<span class="fc" id="L53">        System.out.println(&quot;The player has successfully turned left.&quot;);</span>
+<span class="fc" id="L54">        player.setNumberOfSteps(player.getNumberOfSteps() + 1);</span>
+
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        if (this.player.getCurrentDirection() == 'N') {</span>
+<span class="fc" id="L57">            this.player.setCurrentDirection('W');</span>
+<span class="fc" id="L58">            return;</span>
+        }
+
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (this.player.getCurrentDirection() == 'E') {</span>
+<span class="fc" id="L62">            this.player.setCurrentDirection('N');</span>
+<span class="fc" id="L63">            return;</span>
+        }
+
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (this.player.getCurrentDirection() == 'S') {</span>
+<span class="fc" id="L67">            this.player.setCurrentDirection('E');</span>
+<span class="fc" id="L68">            return;</span>
+        }
+
+<span class="fc" id="L71">        this.player.setCurrentDirection('S');</span>
+<span class="fc" id="L72">    }</span>
+
+    public void shoot() {
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (player.getNumberOfArrows() &lt; 1) {</span>
+<span class="fc" id="L76">            System.out.println(&quot;You have no arrows to shoot!&quot;);</span>
+        }
+
+<span class="fc" id="L79">        reduceTheNumberOfArrows();</span>
+<span class="fc" id="L80">    }</span>
+
+    public void reduceTheNumberOfArrows() {
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (player.getNumberOfArrows() &lt; 1) {</span>
+<span class="fc" id="L84">            return;</span>
+        }
+<span class="fc" id="L86">        this.player.setNumberOfArrows(this.player.getNumberOfArrows() - 1);</span>
+<span class="fc" id="L87">    }</span>
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L91">        int hash = 5;</span>
+<span class="fc" id="L92">        hash = 29 * hash + Objects.hashCode(this.player);</span>
+<span class="fc" id="L93">        return hash;</span>
+    }
+
+    
+
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (this == obj) {</span>
+<span class="fc" id="L101">            return true;</span>
+        }
+<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (obj == null) {</span>
+<span class="fc" id="L104">            return false;</span>
+        }
+<span class="fc bfc" id="L106" title="All 2 branches covered.">        if (getClass() != obj.getClass()) {</span>
+<span class="fc" id="L107">            return false;</span>
+        }
+<span class="fc" id="L109">        final PlayerController other = (PlayerController) obj;</span>
+<span class="fc" id="L110">        return Objects.equals(this.player, other.player);</span>
+    }
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

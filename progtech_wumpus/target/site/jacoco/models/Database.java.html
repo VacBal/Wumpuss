@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="hu"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Database.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ProgtechWumpus</a> &gt; <a href="index.source.html" class="el_package">models</a> &gt; <span class="el_source">Database.java</span></div><h1>Database.java</h1><pre class="source lang-java linenums">package models;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+interface IDatabaseConstants {
+
+    String DB_URL = &quot;jdbc:mysql://localhost:3306/progtech_wumpus&quot;;
+    String DB_USER = &quot;root&quot;;
+    String DB_PASSWORD = &quot;&quot;;
+}
+
+public class Database implements IDatabaseConstants {
+
+    private Connection connection;
+
+<span class="fc" id="L18">    public Database() {</span>
+        try {
+<span class="fc" id="L20">            this.connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);</span>
+<span class="nc" id="L21">        } catch (SQLException e) {</span>
+<span class="nc" id="L22">            System.out.println(&quot;Error at creating database connection!&quot;);</span>
+<span class="nc" id="L23">            System.out.println(e.toString());</span>
+<span class="nc" id="L24">            System.exit(0);</span>
+<span class="fc" id="L25">        }</span>
+<span class="fc" id="L26">    }</span>
+
+    public Connection getConnection() {
+<span class="fc" id="L29">        return connection;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

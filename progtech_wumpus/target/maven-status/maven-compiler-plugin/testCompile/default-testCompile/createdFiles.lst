@@ -1,0 +1,8 @@
+controllers\PlayerControllerTest.class
+models\BoardTest.class
+models\PlayerTest.class
+controllers\BoardControllerTest.class
+builders\GameBuilderTest.class
+controllers\GameModeControllerTest.class
+models\PositionTest.class
+controllers\MainControllerTest.class

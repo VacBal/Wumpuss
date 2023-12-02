@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: controllers.GameModeControllerTest
+-------------------------------------------------------------------------------
+Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.417 s -- in controllers.GameModeControllerTest
